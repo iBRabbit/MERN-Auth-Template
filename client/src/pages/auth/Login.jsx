@@ -1,5 +1,6 @@
 import React from "react";
 import DynamicBox from "../../components/DynamicAuthForm";
+import { Helmet } from 'react-helmet';
 
 function Login() {
 
@@ -11,7 +12,10 @@ function Login() {
     }
     
     return (
-        <DynamicBox title="Login" onSubmit={handleSubmit} />
+        <div className="loginContainer">
+            <Helmet><title>Login</title></Helmet>
+            <DynamicBox title="Login" onSubmit={handleSubmit} />
+        </div>
     );
 }
 

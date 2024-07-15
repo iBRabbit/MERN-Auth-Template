@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import DynamicBox from "../../components/DynamicAuthForm";
 import axios from 'axios';
+import { Helmet } from 'react-helmet';
 
 function Register() {
     const [message, setMessage] = useState("");
@@ -36,6 +37,7 @@ function Register() {
     
     return (
         <div>
+            <Helmet><title>Register</title></Helmet>
             <DynamicBox title="Register" onSubmit={handleSubmit} message={message} success = {success} />
         </div>
     );
