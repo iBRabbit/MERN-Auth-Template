@@ -10,59 +10,39 @@ router.get('/', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-    const { username, password, email} = req.body;
+    const { username, password, email } = req.body;
 
     const isUsernameExists = await Users.findOne({ where: { username } });
     if (isUsernameExists) {
-        return res.json({
-            message: "Username already exists"
+        return res.status(400).json({
+            message: "Username already exists",
+            success: false
         });
     }
 
     const isEmailExists = await Users.findOne({ where: { email } });
     if (isEmailExists) {
-        return res.json({
-            message: "Email already exists"
+        return res.status(400).json({
+            message: "Email already exists",
+            success: false
         });
     }
 
     const salt = bcrypt.genSaltSync(10);
     const hashPassword = bcrypt.hashSync(password, salt);
 
-    const data = await Users.create({
-        username: username,
+    await Users.create({
+        username,
         password: hashPassword,
-        email: email
+        email
     });
 
     res.json({
-        message: "Data berhasil ditambahkan",
-        data
+        message: "Anda berhasil mendaftarkan akun anda.",
+        success: true
     });
 });
 
-router.post('/login', async (req, res) => {
-    const { username, password } = req.body;
-    const user = await Users.findOne({ where: { username } });
-
-    if (!user) {
-        return res.json({
-            message: "Invalid username"
-        });
-    }
-
-    const isValidPassword = bcrypt.compareSync(password, user.password);
-    if (!isValidPassword) {
-        return res.json({
-            message: "Invalid password"
-        });
-    }
-
-    res.json({
-        message: "Login success",
-        user
-    });
-
-});
+// Other routes...
 
 module.exports = router;
