@@ -28,6 +28,13 @@ router.post('/', async (req, res) => {
         });
     }
 
+    if (password.length < 6 || password.length > 20) {
+        return res.status(400).json({
+            message: "Password must be between 6 to 20 characters",
+            success: false
+        });
+    }
+
     const salt = bcrypt.genSaltSync(10);
     const hashPassword = bcrypt.hashSync(password, salt);
 

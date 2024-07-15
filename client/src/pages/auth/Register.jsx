@@ -7,7 +7,7 @@ function Register() {
     const [success, setSuccess] = useState(false);
 
     const handleSubmit = async (e) => {
-        e.preventDefault(); // Prevent the default form submission
+        e.preventDefault(); 
         const data = {
             username: e.target.elements.username.value,
             password: e.target.elements.password.value,
