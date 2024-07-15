@@ -1,8 +1,15 @@
+const express = require('express');
+const app = express();
+const cors = require('cors');
+
+app.use(express.json());
+app.use(cors()); // cors untuk mengizinkan akses dari luar
+
 const db = require('./models');
 const port = 8000;
 
-const express = require('express');
-const app = express();
+const usersRouter = require('./routes/Users');
+app.use("/auth", usersRouter);
 
 db.sequelize.sync().then(() => {
     app.listen(port, () => {

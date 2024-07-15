@@ -11,14 +11,9 @@ module.exports = (sequelize, DataTypes) => {
         },
         email: {
             type: DataTypes.STRING,
-            allowNull: false,
+            allowNull: true,
             unique: true
         },
-        role: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            defaultValue: 'user'
-        }
     });
 
     return Users;
