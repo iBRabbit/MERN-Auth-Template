@@ -1,20 +1,39 @@
-import React from "react";
+import React, { useState } from "react";
 import DynamicBox from "../../components/DynamicAuthForm";
 import { Helmet } from 'react-helmet';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 function Login() {
+    const navigate = useNavigate();
+    const [message, setMessage] = useState("");
+    const [success, setSuccess] = useState(false);
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        const username = e.target.elements.username.value;
-        const password = e.target.elements.password.value
-        console.log(username, password);
-    }
-    
+        const data = {
+            username: e.target.elements.username.value,
+            password: e.target.elements.password.value,
+        };
+
+
+        try {
+            const response = await axios.post('http://localhost:8000/auth/login', data);
+
+            if (response.data.success) {
+                localStorage.setItem('token', response.data.token);
+                navigate('/dashboard'); 
+            }
+
+        } catch (error) {
+            setMessage(`Error: ${error.response.data.message}`);
+        }
+    };
+
     return (
         <div className="loginContainer">
             <Helmet><title>Login</title></Helmet>
-            <DynamicBox title="Login" onSubmit={handleSubmit} />
+            <DynamicBox title="Login" onSubmit={handleSubmit} message={message} success={success}/>
         </div>
     );
 }

@@ -1,12 +1,13 @@
 const express = require('express');
 const app = express();
 const cors = require('cors');
+require('dotenv').config();
 
 app.use(express.json());
 app.use(cors()); // cors untuk mengizinkan akses dari luar
 
 const db = require('./models');
-const port = 8000;
+const port = process.env.PORT || 3000;
 
 const usersRouter = require('./routes/Users');
 app.use("/auth", usersRouter);
