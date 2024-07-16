@@ -6,6 +6,8 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../helpers/AuthContext';
 import { useEffect } from 'react';
 
+import axiosInstance from "../../api/axiosConfig";
+
 function Login() {
     const navigate = useNavigate();
     const [message, setMessage] = useState("");
@@ -28,8 +30,7 @@ function Login() {
         };
 
         try {
-            const response = await axios.post('http://localhost:8000/auth/login', data);
-
+            const response = await axiosInstance.post('/auth/login', data);
             if (response.data.success) {
                 localStorage.setItem('token', response.data.token);
                 navigate('/'); 

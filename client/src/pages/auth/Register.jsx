@@ -3,6 +3,8 @@ import DynamicBox from "../../components/DynamicAuthForm";
 import axios from 'axios';
 import { Helmet } from 'react-helmet';
 
+import axiosInstance from "../../api/axiosConfig";
+
 function Register() {
     const [message, setMessage] = useState("");
     const [success, setSuccess] = useState(false);
@@ -16,7 +18,7 @@ function Register() {
         }
 
         try {
-            const response = await axios.post('http://localhost:8000/auth', data);
+            const response = await axiosInstance.post('/auth', data);
             setMessage(response.data.message);
             if (response.data.success) {
                 setSuccess(true);

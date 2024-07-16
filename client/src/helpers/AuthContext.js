@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import axios from 'axios';
+import axiosInstance from '../api/axiosConfig';
 
 const AuthContext = createContext();
 
@@ -9,7 +9,8 @@ export const AuthProvider = ({ children }) => {
     useEffect(() => {
         const checkAuth = async () => {
             try {
-                const response = await axios.get('http://localhost:8000/auth/check');
+
+                const response = await axiosInstance.get('/auth/check');
                 
                 if (response.status === 200) {
                     setIsAuthenticated(true);
