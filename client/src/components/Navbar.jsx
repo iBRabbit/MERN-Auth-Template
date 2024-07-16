@@ -8,14 +8,14 @@ const AppNavbar = () => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    localStorage.removeItem("token"); // Clear the token
-    setIsAuthenticated(false); // Update the authentication state
-    navigate("/login"); // Redirect to login page
+    localStorage.removeItem("token"); 
+    setIsAuthenticated(false);
+    navigate("/login"); 
   };
 
   return (
     <Navbar bg="dark" variant="dark" expand="lg" className="p-3">
-      <Navbar.Brand as={Link} to="/">ApplyTracker</Navbar.Brand>
+      <Navbar.Brand as={Link} to="/">YourAppName</Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="me-auto">
