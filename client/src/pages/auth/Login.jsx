@@ -3,11 +3,22 @@ import DynamicBox from "../../components/DynamicAuthForm";
 import { Helmet } from 'react-helmet';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../helpers/AuthContext';
+import { useEffect } from 'react';
 
 function Login() {
     const navigate = useNavigate();
     const [message, setMessage] = useState("");
     const [success, setSuccess] = useState(false);
+
+    const { isAuthenticated, setIsAuthenticated } = useAuth();
+
+    // Redirect to dashboard if user is already authenticated
+    useEffect(() => {
+        if (isAuthenticated) {
+            navigate('/dashboard');
+        }
+    }, [isAuthenticated, navigate]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -16,13 +27,13 @@ function Login() {
             password: e.target.elements.password.value,
         };
 
-
         try {
             const response = await axios.post('http://localhost:8000/auth/login', data);
 
             if (response.data.success) {
                 localStorage.setItem('token', response.data.token);
-                navigate('/dashboard'); 
+                navigate('/'); 
+                setIsAuthenticated(true);
             }
 
         } catch (error) {
