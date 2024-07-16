@@ -18,6 +18,8 @@ This template is also providing Navigation Bar with links to Home, Login, and Re
 JWT_SECRET=secret
 PORT=port
 ```
+5. You can edit the .env file on client directory to change the port of the client
+6. Edit the `config.js` file in the server directory to configure the MySQL database connection
 
 ## Usage
 1. Run `npm start` in the server directory to start the server
