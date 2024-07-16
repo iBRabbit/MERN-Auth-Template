@@ -18,6 +18,8 @@ function App() {
           <Routes>
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            {/* Private Route */}
+            <Route path='dashboard' element={<h1>Dashboard</h1>} />
           </Routes>
         </Router>
       </AuthProvider>
